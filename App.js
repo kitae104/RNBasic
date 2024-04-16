@@ -1,28 +1,41 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <View>
-        <Text style={styles.dummyText}>Hello React Native!!</Text>
+    <View style={{
+      padding: 50,                      // 여백 50
+      flexDirection: "row",             // 행으로 정렬
+      width: "80%",                     // 너비 80%
+      height: 300,                      // 높이 300
+      justifyContent: "space-around",   // 
+      alignItems: "stretch",            // 
+    }}>
+      <View style={{
+        backgroundColor: "red",         // 배경색 빨간색
+        flex: 1,                        // 비율 1
+        justifyContent: "center",       // 가로 중앙 정렬
+        alignItems: "center",           // 세로 중앙 정렬
+      }}>        
+        <Text>1</Text>
       </View>
-      <Text style={{margin: 16, borderWidth: 2, borderColor: 'red', padding: 16}}>한글 작업 반영</Text>
-      <Button title="Click me!" onPress={() => alert("Button Clicked!")} />
+      <View style={{
+        backgroundColor: "blue",        // 배경색 파란색
+        flex: 1,                        // 비율 1
+        justifyContent: "center",       // 가로 중앙 정렬
+        alignItems: "center",           // 세로 중앙 정렬
+      }}>
+        <Text>2</Text>
+      </View>
+      <View style={{
+        backgroundColor: "green",       // 배경색 녹색
+        flex: 1,                        // 비율 1
+        justifyContent: "center",       // 가로 중앙 정렬
+        alignItems: "center",           // 세로 중앙 정렬
+      }}>
+        <Text>3</Text>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dummyText: {
-    margin: 16,
-    borderWidth: 2,
-    borderColor: 'blue',
-    padding: 16,
-  }
-});
+
