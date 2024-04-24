@@ -1,39 +1,44 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { useState } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  const [enteredGoalText, setEnteredGoalText] = useState("");
   const [courseGoals, setCourseGoals] = useState([]);
 
-  function goalInputHandler(enteredText) {
-    setEnteredGoalText(enteredText);
-  }
-
-  function addGoalHandler() {
+  function addGoalHandler(enteredGoalText) {
     setCourseGoals((currentCourseGoals) => [
       ...currentCourseGoals,
-      enteredGoalText,
+      { text: enteredGoalText, id: Math.random().toString() },
     ]);
+  }
+
+  function deleteGoalHandler() {
+    console.log("Goal Deleted!");
   }
 
   return (
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Your course goal"
-          onChangeText={goalInputHandler}
-        />
-        <Button title="Add Goal" onPress={addGoalHandler} />
-      </View>
+      <GoalInput onAddGoal={addGoalHandler} />
+
       <View style={styles.goalsContainer}>
-        {courseGoals.map((goal) => (
-          <View style={styles.goalItem} key={goal}>
-            <Text style={styles.goalText}>
-              {goal}
-            </Text>
-          </View>
-        ))}
+        <FlatList /* 목록이 길어지는 경우 ScrollView 대신 FlatList 사용 */
+          data={courseGoals}
+          renderItem={(itemData) => {
+            return (
+              <GoalItem
+                text={itemData.item.text}
+                onDeleteItem={deleteGoalHandler}
+              /> /* text를 이용하여 정보 전달 */
+            );
+          }}
+          keyExtractor={(item, index) => {
+            /* keyExtractor: 각 아이템의 고유한 키를 지정 */
+            return item.id;
+          }}
+          alwaysBounceVertical={false} /* 수직 스크롤의 바운스 여부 */
+        />
       </View>
     </View>
   );
@@ -45,33 +50,8 @@ const styles = StyleSheet.create({
     padding: 50, // 패딩 50
     paddingHorizontal: 16, // 가로 패딩 16
   },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row", // 행으로 정렬
-    justifyContent: "space-between", // 두 요소 사이의 공간을 최대한 확보
-    alignItems: "center", // 세로 중앙 정렬
-    marginBottom: 24, // 아래쪽 패딩 24
-    borderBottomWidth: 1, // 아래쪽 테두리 두께 1
-    borderBottomColor: "#cccccc", // 아래쪽 테두리 색상
-  },
-  textInput: {
-    borderColor: "#cccccc", // 테두리 색상
-    borderWidth: 1, // 테두리 두께
-    padding: 8, // 패딩 10
-    width: "70%", // 너비 70%
-    marginRight: 8, // 오른쪽 마진 8
-  },
+
   goalsContainer: {
     flex: 5,
-  },
-  goalItem: {
-    margin: 8,
-    padding: 8,
-    borderRadius: 6,
-    backgroundColor: "#5e0acc",
-    color: 'white',
-  },
-  goalText: {
-    color: 'white',
   },
 });
