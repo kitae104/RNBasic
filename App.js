@@ -14,8 +14,10 @@ export default function App() {
     ]);
   }
 
-  function deleteGoalHandler() {
-    console.log("Goal Deleted!");
+  function deleteGoalHandler(id) {
+    setCourseGoals(currentCourseGoals => {
+      return currentCourseGoals.filter((goal) => goal.id !== id); // id가 같지 않은 것만 필터링 ==> 삭제 
+    });
   }
 
   return (
@@ -29,6 +31,7 @@ export default function App() {
             return (
               <GoalItem
                 text={itemData.item.text}
+                id={itemData.item.id}
                 onDeleteItem={deleteGoalHandler}
               /> /* text를 이용하여 정보 전달 */
             );
