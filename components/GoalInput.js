@@ -14,6 +14,8 @@ function GoalInput(props) {
     setEnteredGoalText(""); // 입력창 초기화
   }
 
+  console.log(enteredGoalText);
+
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.inputContainer}>
@@ -62,8 +64,8 @@ const styles = StyleSheet.create({
   textInput: {
     borderWidth: 1, // 테두리 두께
     borderColor: "#e4d0ff", // 테두리 색상
-    backgroundColor: '#e4d0ff',
-    color: '#120438',
+    backgroundColor: "#e4d0ff",
+    color: "#120438",
     borderRadius: 6, // 테두리 둥글기 6
     width: "100%", // 너비 70%
     padding: 16, // 패딩 16
